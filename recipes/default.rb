@@ -26,7 +26,7 @@ regdir = 'HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL'
 registry_key 'HKLM\SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002' do
   action     node['schannel']['cipher_order']['secure'] ? :create : :nothing
   recursive  true
-  values     [{ name: 'Functions', type: :string, data: node['schannel']['ciphers']['suites'].join(',') }]
+  values     [{ name: 'Functions', type: :string, data: node['schannel']['cipher_order']['list'].join(',') }]
 end
 
 # event logging set level of debugging
@@ -37,10 +37,10 @@ registry_key regdir.to_s do
 end
 
 # enable/disable the schannel protocols
-sclist = node['schannel']['protocols']['client-side'] ? %w(Server Client) : %w(Server)
+sclist = node['schannel']['protocols_client_side'] ? %w(Server Client) : %w(Server)
 sclist.each do |sc|
   node['schannel']['protocols'].each do |pname, pval|
-    registry_key "#{regdir}\\Protocols\\#{pname}\\#{sc}" do
+    registry_key "#{regdir}\\Protocols\\#{registry_name(pname)}\\#{sc}" do
       action     :create
       recursive  true
       values [
@@ -53,7 +53,7 @@ end
 
 # enable/disable the schannel ciphers
 node['schannel']['ciphers'].each do |cname, cval|
-  registry_key "#{regdir}\\Ciphers\\#{cname}" do
+  registry_key "#{regdir}\\Ciphers\\#{registry_name(cname)}" do
     action     :create
     recursive  true
     values     [{ name: 'Enabled', type: :dword, data: cval['enable'] ? 4_294_967_295 : 0 }]
@@ -62,7 +62,7 @@ end
 
 # enable/disable the schannel hashes
 node['schannel']['hashes'].each do |hname, hval|
-  registry_key "#{regdir}\\Hashes\\#{hname}" do
+  registry_key "#{regdir}\\Hashes\\#{registry_name(hname)}" do
     action     :create
     recursive  true
     values     [{ name: 'Enabled', type: :dword, data: hval['enable'] ? 4_294_967_295 : 0 }]
@@ -71,7 +71,7 @@ end
 
 # enable/disable the schannel key exchange algorithms
 node['schannel']['keyexch'].each do |kname, kval|
-  registry_key "#{regdir}\\KeyExchangeAlgorithms\\#{kname}" do
+  registry_key "#{regdir}\\KeyExchangeAlgorithms\\#{registry_name(kname)}" do
     action     :create
     recursive  true
     values     [{ name: 'Enabled', type: :dword, data: kval['enable'] ? 4_294_967_295 : 0 }]

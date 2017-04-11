@@ -34,16 +34,16 @@ Customize your security configuration using attributes.
 ## Attributes
 
 Attribute                                         | Default Value | Description
------------------------------------------------ - | ------------- | ------------------------------------------------------
+------------------------------------------------- | ------------- | ------------------------------------------------------
 `default['schannel']['event_logging']['level']`   | 1             | Is the URL of the package repository.
 `default['schannel']['cipher_order']['secure']`   | true          | Define the security level 
-`default['schannel']['protocols']['client-side']` | true          | Apply the protocol configuration at the client side.
+`default['schannel']['protocols_client_side']`    | true          | Apply the protocol configuration at the client side.
 
 Others available attributes are used to enable/disable a protocol, cipher, hash or exchange key algorithm.
 Please check `defaut.rb` attribute file for more details.
 
-You can also define your own list of ciphers.
-Please check `cipher.rb` attribute file for more details.
+You can also define your own list of ciphers via `default['schannel']['cipher_order']['list']` attribute.
+Please check `defaut.rb` attribute file for more details.
 
 ## Run list
 

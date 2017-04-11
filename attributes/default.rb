@@ -23,13 +23,8 @@
 # 4	Log informational and success events
 default['schannel']['event_logging']['level'] = 1
 
-# define the security cipher suite order
-# 0 default (depend of windows version: https://msdn.microsoft.com/fr-fr/library/windows/desktop/aa374757(v=vs.85).aspx
-# 1 secure (best practices defined in Nartac IIS Cryto: https://www.nartac.com/Products/IISCrypto)
-default['schannel']['cipher_order']['secure'] = true
-
 # Set the secure protocols at client side
-default['schannel']['protocols']['client-side'] = true
+default['schannel']['protocols_client_side'] = true
 
 # Protocols secure settings
 default['schannel']['protocols']['mupuh']['enable'] = false # Disable Multi-Protocol Unified Hello
@@ -65,3 +60,49 @@ default['schannel']['hashes']['sha512']['enable'] = true  # Disable SHA-512
 default['schannel']['keyexch']['diffiehellman']['enable'] = true # Enable Diffie-Hellman
 default['schannel']['keyexch']['pkcs']['enable']          = true # Enable PKCS
 default['schannel']['keyexch']['ecdh']['enable']          = true # Enable Diffie-Hellman
+
+# define the security cipher suite order
+# 0 default (depend of windows version: https://msdn.microsoft.com/fr-fr/library/windows/desktop/aa374757(v=vs.85).aspx
+# 1 secure (best practices defined in Nartac IIS Cryto: https://www.nartac.com/Products/IISCrypto)
+default['schannel']['cipher_order']['secure'] = true
+
+# This list is based on best practices defined in Nartac IIS Cryto:
+# Details at: https://www.nartac.com/Products/IISCrypto
+# You can use this default attribute to set your own cipher suite.
+default['schannel']['cipher_order']['list'] = %w(
+  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P521
+  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384
+  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256
+  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P521
+  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384
+  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256
+  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P521
+  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P384
+  TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P256
+  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P521
+  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P384
+  TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA_P256
+  TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384_P521
+  TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384_P384
+  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P521
+  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384
+  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256
+  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384_P521
+  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384_P384
+  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P521
+  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384
+  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256
+  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P521
+  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P384
+  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256
+  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P521
+  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P384
+  TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA_P256
+  TLS_RSA_WITH_AES_256_GCM_SHA384
+  TLS_RSA_WITH_AES_128_GCM_SHA256
+  TLS_RSA_WITH_AES_256_CBC_SHA256
+  TLS_RSA_WITH_AES_128_CBC_SHA256
+  TLS_RSA_WITH_AES_256_CBC_SHA
+  TLS_RSA_WITH_AES_128_CBC_SHA
+  TLS_RSA_WITH_3DES_EDE_CBC_SHA
+)
