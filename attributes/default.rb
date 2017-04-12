@@ -59,7 +59,7 @@ default['schannel']['hashes']['sha512']['enable'] = true  # Disable SHA-512
 # KeyExchangeAlgorithms hashes secure settings
 default['schannel']['keyexch']['diffiehellman']['enable'] = true # Enable Diffie-Hellman
 default['schannel']['keyexch']['pkcs']['enable']          = true # Enable PKCS
-default['schannel']['keyexch']['ecdh']['enable']          = true # Enable Diffie-Hellman
+default['schannel']['keyexch']['ecdh']['enable']          = true # Enable ECDH
 
 # define the security cipher suite order
 # 0 default (depend of windows version: https://msdn.microsoft.com/fr-fr/library/windows/desktop/aa374757(v=vs.85).aspx
