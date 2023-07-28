@@ -30,7 +30,7 @@ def registry_name(name)
   # ciphers
   when 'aes_128128' then 'AES 128/128'
   when 'aes_256256' then 'AES 256/256'
-  when '3des_168168' then 'Triple DES 168/168'
+  when '3des_168168' then 'Triple DES 168'
   when 'rc2_40128' then 'RC2 40/128'
   when 'rc2_56128' then 'RC2 56/128'
   when 'rc2_128128' then 'RC2 128/128'
